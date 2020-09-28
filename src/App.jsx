@@ -16,12 +16,11 @@ const Welcome = () => {
 
 const App = () => {
   return <div className="container">
-    <h1 class="py-4">FrontEnd Interview Exercises</h1>
+    <h1 class="py-4">
+      <Link to="/" className="nav-link active">FrontEnd Interview Exercises</Link>
+    </h1>
 
     <ul className="nav nav-tabs">
-      <li className="nav-item">
-        <Link to="/" className="nav-link active">Homepage</Link>
-      </li>
       <li className="nav-item">
         <Link to="/exercise01" className="nav-link">Exercise 01</Link>
       </li>
