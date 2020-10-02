@@ -1,43 +1,68 @@
-import React from 'react';
+import React, { useState } from "react";
 
-/* THE FIX STARTS HERE */
-
-// state data for 3 counters
 const data = [
   { id: 1, value: 0 },
   { id: 2, value: 0 },
   { id: 3, value: 0 },
 ];
 
-// Counter Component
-const Counter = ({ value }) => {
+const Counter = ({ value, onIncrement, onDecrement }) => {
+  const [count, setCount] = useState(value);
   return (
     <div className="d-flex my-2">
-      <strong>{value}</strong>
+      <strong>{count}</strong>
       <div className="ml-2">
-        <button className="btn btn-danger mr-1">-</button>
-        <button className="btn btn-success">+</button>
+        <button
+          className="btn btn-danger mr-1"
+          onClick={() => setCount(onDecrement(count))}
+        >
+          -
+        </button>
+        <button
+          className="btn btn-success"
+          onClick={() => setCount(onIncrement(count))}
+        >
+          +
+        </button>
       </div>
     </div>
   );
 };
 
 const GroupOfCounters = () => {
+  
+  function onIncrement(singleInteger) {
+    function internalFunction(value) {
+      return value + singleInteger;
+    }
+    return internalFunction;
+  }
+
+  function onDecrement(singleInteger) {
+    function internalFunction(value) {
+      return value - singleInteger;
+    }
+    return internalFunction;
+  }
+
   return (
     <div>
       {data.map((counter) => (
-        <Counter key={counter.id} value={counter.value} />
+        <Counter
+          key={counter.id}
+          value={counter.value}
+          onDecrement={func => func = onDecrement(5)}
+          onIncrement={func => func = onIncrement(2)}
+        />
       ))}
     </div>
   );
 };
 
-/* THE FIX ENDS HERE */
-
 const Exercise02 = () => {
   return (
     <div className="container">
-      <h2>Instructions</h2>
+      {/* <h2>Instructions</h2>
 
       <p>
         There are 2 components in this file: <strong>Counter</strong> and{' '}
@@ -94,7 +119,7 @@ const Exercise02 = () => {
         </li>
       </ol>
 
-      <hr className="my-5" />
+      <hr className="my-5" /> */}
 
       <GroupOfCounters />
     </div>
