@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-
-const data = [
-  { id: 1, value: 0 },
-  { id: 2, value: 0 },
-  { id: 3, value: 0 },
-];
+import { useEffect } from "react";
 
 const Counter = ({ value, onIncrement, onDecrement }) => {
   const [count, setCount] = useState(value);
@@ -30,7 +25,12 @@ const Counter = ({ value, onIncrement, onDecrement }) => {
 };
 
 const GroupOfCounters = () => {
-  
+  const [data, setData] = useState([
+    { id: 1, value: 0 },
+    { id: 2, value: 0 },
+    { id: 3, value: 0 },
+  ]);
+
   function onIncrement(singleInteger) {
     function internalFunction(value) {
       return value + singleInteger;
@@ -45,14 +45,18 @@ const GroupOfCounters = () => {
     return internalFunction;
   }
 
+  useEffect(() => {
+    setData([...data, { id: 4, value: 0 }])
+  }, [])
+
   return (
     <div>
       {data.map((counter) => (
         <Counter
           key={counter.id}
           value={counter.value}
-          onDecrement={func => func = onDecrement(5)}
-          onIncrement={func => func = onIncrement(2)}
+          onDecrement={(func) => (func = onDecrement(5))}
+          onIncrement={(func) => (func = onIncrement(2))}
         />
       ))}
     </div>
